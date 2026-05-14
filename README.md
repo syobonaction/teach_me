@@ -12,6 +12,23 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
 
+### Environment variables
+
+Create a `.env.local` file in the project root (Next.js also loads `.env`). The file is gitignored; do not commit real secrets.
+
+The LiveKit token API (`/api/livekit/token`) reads server-only variables. Use the same API key and secret you pass to the Docker `livekit-server` `--keys` flag.
+
+```bash
+LIVEKIT_URL=ws://127.0.0.1:7880
+LIVEKIT_API_KEY=devkey
+LIVEKIT_API_SECRET=devsecret
+```
+
+- `LIVEKIT_URL` — WebSocket URL for your LiveKit server. For local Docker, use `ws://127.0.0.1:7880` (not `localhost`) so it matches the lab and token responses.
+- `LIVEKIT_API_KEY` and `LIVEKIT_API_SECRET` — must match the pair in `--keys "apikey: apisecret"` when you start the container.
+
+Restart `npm run dev` after changing env files so Next.js picks up new values.
+
 ## Local LiveKit (Docker)
 
 The prototype uses a self-hosted [LiveKit](https://livekit.io/) server for WebRTC rooms. Run it locally with Docker before using the in-app connection lab or other clients.
